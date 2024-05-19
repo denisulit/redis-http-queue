@@ -38,6 +38,8 @@ Warning: This won't be kept up to date and I am just publishing this for a proje
    REDIS_URL=redis://localhost:6379
    QUEUE_PASSWORD=your_password_here
    PORT=3000
+   QUEUE_TIMEOUT=30000
+   REQUEUE_DELAY=30000
    ```
 
 ## Running the Project

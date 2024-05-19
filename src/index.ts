@@ -20,8 +20,31 @@ app.post("/queue", async (req: Request, res: Response) => {
   res.status(200).send("Added to queue");
 });
 
+app.post("/queue/start", (req: Request, res: Response) => {
+  const { password } = req.body;
+
+  if (config.QUEUE_PASSWORD && password !== config.QUEUE_PASSWORD) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  queueManager.processQueue();
+  res.status(200).send("Queue processing started");
+});
+
+app.post("/queue/stop", (req: Request, res: Response) => {
+  const { password } = req.body;
+
+  if (config.QUEUE_PASSWORD && password !== config.QUEUE_PASSWORD) {
+    return res.status(401).send("Unauthorized");
+  }
+
+  queueManager.stopProcessing();
+  res.status(200).send("Queue processing stopped");
+});
+
 const PORT = config.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  // Automatically start processing the queue, can be removed if only manual control is desired
   queueManager.processQueue();
 });
