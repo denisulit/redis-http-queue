@@ -31,7 +31,6 @@ class QueueManager {
           response.data.status === "COMPLETED")
       ) {
         // In my use case, if the API returns failed or completed, I don't want to keep queueing it. You can change this.
-        // This condition is for if no requeue is needed
         console.log(`Successfully processed item with id ${item.id}`);
       } else {
         throw new Error(
